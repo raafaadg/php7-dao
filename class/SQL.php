@@ -1,7 +1,5 @@
 <?php
-/**
- *
- */
+
 class SQL extends PDO
 {
   private $conn;
@@ -14,20 +12,20 @@ class SQL extends PDO
   private function setParams($statment, $parameters = array())
   {
     foreach ($parameters as $key => $value) {
-      @$stmt->setParam($key, $value);
+      $this->setParam($statment,$key, $value);
     }
   }
 
-private function setParam($key, $value){
+private function setParam($statment,$key, $value){
   $statment->bindParam($key, $value);
 }
-  public function query($rawQuery, $params = array()){
-    $stmt = $this->conn->prepare($rawQuery);
-    $this->setParams($stmt,$params);
-    $stmt->execute();
+public function query($rawQuery, $params = array()){
+  $stmt = $this->conn->prepare($rawQuery);
+  $this->setParams($stmt,$params);
+  $stmt->execute();
 
-    return $stmt;
-  }
+  return $stmt;
+}
 
   public function select($rawQuery, $params = array()):array
   {
